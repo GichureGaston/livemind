@@ -1,0 +1,117 @@
+<div class="host-container">
+
+  @if (!state.session()) {
+    <div class="setup-card">
+      <h1>LiveMind</h1>
+      <p class="subtitle">AI-powered quiz for Angular Kenya</p>
+
+      <div class="input-group">
+        <input
+          type="text"
+          placeholder="Enter a topic (e.g. Angular, Nairobi, Firebase...)"
+          [ngModel]="topic()"
+          (ngModelChange)="topic.set($event)"
+          (keyup.enter)="createQuiz()"
+          [disabled]="state.isGenerating()"
+        />
+        <button
+          (click)="createQuiz()"
+          [disabled]="state.isGenerating() || !topic()">
+          {{ state.isGenerating() ? 'Gemini is thinking...' : 'Generate Quiz' }}
+        </button>
+      </div>
+
+      @if (errorMsg()) {
+        <p class="error">{{ errorMsg() }}</p>
+      }
+    </div>
+  }
+
+  @if (state.session() && state.session()!.status === 'lobby') {
+    <div class="lobby-card">
+      <h2>Quiz Ready: {{ state.session()!.topic }}</h2>
+      <p class="join-url">Join at: <strong>{{ joinUrl }}</strong></p>
+      <p class="participant-count">{{ state.participantCount() }} participants joined</p>
+
+      <div class="questions-preview">
+        @for (q of state.session()!.questions; track q.id) {
+          <div class="question-chip">{{ q.text }}</div>
+        }
+      </div>
+
+      <button class="start-btn" (click)="startQuiz()">
+        Start Quiz →
+      </button>
+    </div>
+  }
+
+  @if (state.session()?.status === 'active') {
+    <div class="active-card">
+      <div class="question-header">
+        <span class="q-count">
+          Question {{ state.session()!.currentQuestionIndex + 1 }}
+          of {{ state.session()!.questions.length }}
+        </span>
+        <span class="participant-count">{{ state.participantCount() }} players</span>
+      </div>
+
+      <h2>{{ state.currentQuestion()?.text }}</h2>
+
+      <div class="options">
+        @for (opt of state.currentQuestion()?.options ?? []; track $index) {
+          <div class="option"
+            [class.correct]="$index === state.currentQuestion()!.correctIndex">
+            <span class="opt-letter">{{ ['A','B','C','D'][$index] }}</span>
+            {{ opt }}
+          </div>
+        }
+      </div>
+
+      @if (state.explanation()) {
+        <div class="explanation">
+          <strong>Gemini says:</strong> {{ state.explanation() }}
+        </div>
+      }
+
+      <div class="action-row">
+        <button (click)="explainAnswer()" [disabled]="state.isExplaining()">
+          {{ state.isExplaining() ? 'Explaining...' : 'Explain Answer' }}
+        </button>
+        <button class="next-btn" (click)="nextQuestion()">
+          {{ state.session()!.currentQuestionIndex + 1 === state.session()!.questions.length ? 'End Quiz' : 'Next Question →' }}
+        </button>
+      </div>
+
+      <div class="leaderboard-preview">
+        <h3>Live Leaderboard</h3>
+        @for (entry of state.leaderboard(); track entry.id) {
+          <div class="lb-row">
+            <span class="rank">#{{ entry.rank }}</span>
+            <span class="name">{{ entry.nickname }}</span>
+            <span class="score">{{ entry.score }} pts</span>
+          </div>
+        }
+        @empty {
+          <p class="no-players">Waiting for answers...</p>
+        }
+      </div>
+    </div>
+  }
+
+  @if (state.session()?.status === 'ended') {
+    <div class="ended-card">
+      <h2>Quiz Over!</h2>
+      <div class="final-leaderboard">
+        @for (entry of state.leaderboard(); track entry.id) {
+          <div class="lb-row" [class.winner]="entry.rank === 1">
+            <span class="rank">#{{ entry.rank }}</span>
+            <span class="name">{{ entry.nickname }}</span>
+            <span class="score">{{ entry.score }} pts</span>
+          </div>
+        }
+      </div>
+      <button (click)="state.session.set(null)">New Quiz</button>
+    </div>
+  }
+
+</div>
