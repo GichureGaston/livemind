@@ -1,1 +1,66 @@
-<p>leaderboard works!</p>
+<div class="leaderboard-container">
+  @if (!state.session()) {
+  <div class="loading">
+    <div class="spinner"></div>
+    <p>Loading Results...</p>
+  </div>
+  } @else {
+  <div class="confetti-overlay"></div>
+
+  <header class="lb-header">
+    <h1>Final Results</h1>
+    <p>{{ state.session()?.topic }}</p>
+  </header>
+
+  @if (topThree().length > 0) {
+  <div class="podium-wrapper">
+    <!-- 2nd Place -->
+    @if (topThree().length > 1) {
+    <div class="podium-pillar rank-2">
+      <div class="avatar-circle silver">2</div>
+      <div class="nickname">{{ topThree()[1].nickname }}</div>
+      <div class="score">{{ topThree()[1].score }}</div>
+      <div class="pedestal silver-pedestal"></div>
+    </div>
+    }
+
+    <!-- 1st Place -->
+    <div class="podium-pillar rank-1">
+      <div class="crown">👑</div>
+      <div class="avatar-circle gold">1</div>
+      <div class="nickname">{{ topThree()[0].nickname }}</div>
+      <div class="score">{{ topThree()[0].score }}</div>
+      <div class="pedestal gold-pedestal"></div>
+    </div>
+
+    <!-- 3rd Place -->
+    @if (topThree().length > 2) {
+    <div class="podium-pillar rank-3">
+      <div class="avatar-circle bronze">3</div>
+      <div class="nickname">{{ topThree()[2].nickname }}</div>
+      <div class="score">{{ topThree()[2].score }}</div>
+      <div class="pedestal bronze-pedestal"></div>
+    </div>
+    }
+  </div>
+  }
+
+  <!-- Runners Up List -->
+  @if (runnersUp().length > 0) {
+  <div class="runners-up-list">
+    @for (entry of runnersUp(); track entry.id) {
+    <div class="runner-up-row" [style.animation-delay]="($index * 0.1) + 's'">
+      <div class="rank">{{ entry.rank }}</div>
+      <div class="name">{{ entry.nickname }}</div>
+      <div class="pts">{{ entry.score }} pts</div>
+    </div>
+    }
+  </div>
+  }
+
+  <!-- Actions -->
+  <div class="action-footer">
+    <button class="home-btn" (click)="goHome()">Home / Host New Quiz</button>
+  </div>
+  }
+</div>

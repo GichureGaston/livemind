@@ -8,20 +8,19 @@
       <div class="input-group">
         <input
           type="text"
-          placeholder="Enter a topic (e.g. Angular, Nairobi, Firebase...)"
-          [ngModel]="topic()"
-          (ngModelChange)="topic.set($event)"
-          (keyup.enter)="createQuiz()"
+          [value]="topic()"
+          (input)="topic.set($any($event.target).value)"
+          (keydown.enter)="!state.isGenerating() && topic().length >= 3 && createQuiz()"
+          placeholder="Enter quiz topic"
           [disabled]="state.isGenerating()"
-        />
+        >
         <button
+          type="button"
           (click)="createQuiz()"
-          [disabled]="state.isGenerating() || !topic()">
+          [disabled]="state.isGenerating() || !topic() || topic().length < 3">
           {{ state.isGenerating() ? 'Gemini is thinking...' : 'Generate Quiz' }}
         </button>
-      </div>
-
-      @if (errorMsg()) {
+      </div>     @if (errorMsg()) {
         <p class="error">{{ errorMsg() }}</p>
       }
     </div>
@@ -31,6 +30,14 @@
     <div class="lobby-card">
       <h2>Quiz Ready: {{ state.session()!.topic }}</h2>
       <p class="join-url">Join at: <strong>{{ joinUrl }}</strong></p>
+      
+      @if (qrCodeDataUrl()) {
+        <div class="qr-container">
+          <img [src]="qrCodeDataUrl()" alt="Scan to join" class="qr-code">
+          <p class="qr-hint">Scan to Join</p>
+        </div>
+      }
+
       <p class="participant-count">{{ state.participantCount() }} participants joined</p>
 
       <div class="questions-preview">

@@ -1,0 +1,29 @@
+[debug] [2026-04-14T05:00:29.408Z] ----------------------------------------------------------------------
+[debug] [2026-04-14T05:00:29.410Z] Command:       /usr/bin/node /home/gaston/.npm-global/bin/firebase deploy --only hosting
+[debug] [2026-04-14T05:00:29.410Z] CLI Version:   15.13.0
+[debug] [2026-04-14T05:00:29.410Z] Platform:      linux
+[debug] [2026-04-14T05:00:29.410Z] Node Version:  v22.22.2
+[debug] [2026-04-14T05:00:29.411Z] Time:          Tue Apr 14 2026 08:00:29 GMT+0300 (East Africa Time)
+[debug] [2026-04-14T05:00:29.411Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-04-14T05:00:30.508Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-04-14T05:00:30.509Z] > authorizing via signed-in user (gichuregaston@gmail.com)
+[debug] [2026-04-14T05:00:30.509Z] [iam] checking project livemind-88d37 for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2026-04-14T05:00:30.510Z] Checked if tokens are valid: true, expires at: 1776145629795
+[debug] [2026-04-14T05:00:30.510Z] Checked if tokens are valid: true, expires at: 1776145629795
+[debug] [2026-04-14T05:00:30.511Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/livemind-88d37:testIamPermissions [none]
+[debug] [2026-04-14T05:00:30.511Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/livemind-88d37:testIamPermissions  x-goog-user-project=livemind-88d37
+[debug] [2026-04-14T05:00:30.511Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/livemind-88d37:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2026-04-14T05:00:31.042Z] *** [apiv2] error from fetch(https://cloudresourcemanager.googleapis.com/v1/projects/livemind-88d37:testIamPermissions, {"headers":{},"method":"POST","body":"{\"permissions\":[\"firebase.projects.get\",\"firebasehosting.sites.update\"]}"}): FetchError: request to https://cloudresourcemanager.googleapis.com/v1/projects/livemind-88d37:testIamPermissions failed, reason: 
+[debug] [2026-04-14T05:00:31.043Z] [iam] error while checking permissions, command may fail: Failed to make request to https://cloudresourcemanager.googleapis.com/v1/projects/livemind-88d37:testIamPermissions
+[debug] [2026-04-14T05:00:31.045Z] Checked if tokens are valid: true, expires at: 1776145629795
+[debug] [2026-04-14T05:00:31.045Z] Checked if tokens are valid: true, expires at: 1776145629795
+[debug] [2026-04-14T05:00:31.046Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/livemind-88d37 [none]
+[debug] [2026-04-14T05:00:56.069Z] *** [apiv2] error from fetch(https://firebase.googleapis.com/v1beta1/projects/livemind-88d37, {"headers":{},"method":"GET","signal":{"reason":""}}): FetchError: request to https://firebase.googleapis.com/v1beta1/projects/livemind-88d37 failed, reason: getaddrinfo ENOTFOUND firebase.googleapis.com
+[debug] [2026-04-14T05:00:56.070Z] Failed to make request to https://firebase.googleapis.com/v1beta1/projects/livemind-88d37 (original: request to https://firebase.googleapis.com/v1beta1/projects/livemind-88d37 failed, reason: getaddrinfo ENOTFOUND firebase.googleapis.com)
+[debug] [2026-04-14T05:01:01.081Z] Error: Timed out.
+    at Timeout._onTimeout (/home/gaston/.npm-global/lib/node_modules/firebase-tools/lib/utils.js:309:49)
+    at listOnTimeout (node:internal/timers:585:17)
+    at process.processTimers (node:internal/timers:521:7)
+[error] 
+[error] Error: An unexpected error has occurred.

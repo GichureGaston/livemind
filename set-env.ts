@@ -4,7 +4,6 @@ require('dotenv').config();
 const targetPath = './src/environments/environment.ts';
 const envConfigFile = `export const environment = {
   production: false,
-  geminiApiKey: '${process.env['GEMINI_API_KEY']}',
   firebase: {
     apiKey: '${process.env['FIREBASE_API_KEY']}',
     authDomain: '${process.env['FIREBASE_AUTH_DOMAIN']}',

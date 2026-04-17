@@ -1,1 +1,76 @@
-<p>player works!</p>
+<div class="player-container">
+  @if (!state.session()) {
+  <div class="loading-state">
+    <div class="spinner"></div>
+    <p>Connecting to session...</p>
+  </div>
+  } @else {
+  @if (!state.myParticipantId()) {
+  <!-- Join Form -->
+  <div class="join-card">
+    <h1>LiveMind</h1>
+    <h2>Join: {{ state.session()?.topic }}</h2>
+
+    <div class="input-group">
+      <input type="text" placeholder="Enter your nickname" [value]="nickname()"
+        (input)="nickname.set($any($event.target).value)" (keydown.enter)="joinSession()" [disabled]="isJoining()">
+
+      <button (click)="joinSession()" [disabled]="!nickname().trim() || isJoining()">
+        {{ isJoining() ? 'Joining...' : 'Join Quiz' }}
+      </button>
+    </div>
+  </div>
+  } @else {
+  <!-- Already Joined -->
+  @switch (state.session()?.status) {
+  @case ('lobby') {
+  <div class="waiting-card">
+    <div class="pulse-ring"></div>
+    <h2>You're in!</h2>
+    <p>Waiting for the host to start the quiz...</p>
+    <p class="nickname-display">Playing as <strong>{{ nickname() }}</strong></p>
+  </div>
+  }
+
+  @case ('active') {
+  <div class="active-card">
+    <div class="header">
+      <span class="q-number">Question {{ state.session()!.currentQuestionIndex + 1 }}</span>
+      <span class="score-display">Score: {{ state.myScore() }}</span>
+    </div>
+
+    <h2>{{ state.currentQuestion()?.text }}</h2>
+
+    <div class="options-grid" [class.answered]="hasAnswered()">
+      @for (opt of state.currentQuestion()?.options ?? []; track $index) {
+      <button class="option-btn" [class.selected]="selectedOption() === $index" (click)="submitAnswer($index)"
+        [disabled]="hasAnswered()">
+        <span class="letter">{{ ['A','B','C','D'][$index] }}</span>
+        <span class="text">{{ opt }}</span>
+      </button>
+      }
+    </div>
+
+    @if (hasAnswered()) {
+    <div class="waiting-others">
+      <i class="icon">⏳</i>
+      <p>Answer submitted! Waiting for others...</p>
+    </div>
+    }
+  </div>
+  }
+
+  @case ('ended') {
+  <div class="ended-card">
+    <h2>Quiz Complete!</h2>
+    <div class="final-score-display">
+      <p>Your Final Score</p>
+      <h1>{{ state.myScore() }}</h1>
+    </div>
+    <button class="primary-btn" (click)="viewLeaderboard()">View Leaderboard</button>
+  </div>
+  }
+  }
+  }
+  }
+</div>

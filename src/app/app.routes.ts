@@ -7,7 +7,7 @@ export const routes: Routes = [
   },
   {
     path: 'lobby/:id',
-    loadComponent: () => import('./features/lobby/lobby').then(m => m.LobbyComponent)
+    redirectTo: 'play/:id'
   },
   {
     path: 'play/:id',
