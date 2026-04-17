@@ -67,7 +67,7 @@ npm run config; npm run build; npx firebase-tools deploy --only hosting
 
 ---
 
-## 💡 Windows Troubleshooting
+##  Windows Troubleshooting
 
 ### PowerShell Execution Policy
 If you get an error saying `ng.ps1 cannot be loaded`, run this command in your terminal to allow script execution:
