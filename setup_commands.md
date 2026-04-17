@@ -55,7 +55,25 @@ npm run build
 ## 6. Deployment
 Deploy the application to Firebase Hosting.
 
+**Bash (macOS/Linux/Git Bash):**
 ```bash
-# Full deployment pipeline
 npm run config && npm run build && npx firebase-tools deploy --only hosting
 ```
+
+**PowerShell (Windows):**
+```powershell
+npm run config; npm run build; npx firebase-tools deploy --only hosting
+```
+
+---
+
+## 💡 Windows Troubleshooting
+
+### PowerShell Execution Policy
+If you get an error saying `ng.ps1 cannot be loaded`, run this command in your terminal to allow script execution:
+```powershell
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+```
+
+### Command Chaining
+Older versions of PowerShell (5.1) do not support `&&`. Use `;` to run commands sequentially, or install **PowerShell 7** for full compatibility with Linux-style chaining.
