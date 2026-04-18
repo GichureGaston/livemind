@@ -1,4 +1,4 @@
-# ☁️ GCP & Vertex AI Setup Guide
+# GCP & Vertex AI Setup Guide
 
 Linking your project to Google Cloud Platform (GCP) allows you to use Vertex AI, manage billing, and leverage enterprise-grade AI infrastructure.
 
