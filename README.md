@@ -54,6 +54,16 @@ ng e2e
 
 Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
 
+## Setup Documentation
+
+To get this project running with all its AI features, follow these setup guides:
+
+1.  **[Firebase Setup](file:///home/gaston/livemind/SETUP_FIREBASE.md)** - Project creation and core services.
+2.  **[Google AI Studio Setup](file:///home/gaston/livemind/SETUP_GOOGLE_AI_STUDIO.md)** - Rapid prototyping with Gemini API keys.
+3.  **[GCP & Vertex AI Setup](file:///home/gaston/livemind/SETUP_GCP.md)** - Enterprise integration, billing, and production security.
+
+For a list of CLI commands used during initial scaffolding, see **[Setup Commands](file:///home/gaston/livemind/setup_commands.md)**.
+
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
